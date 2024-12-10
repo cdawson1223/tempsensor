@@ -24,6 +24,10 @@ def index():
     return render_template('index.html', title='Home', actual = actual, measured = measured, humidity = humidity, ambient_light = ambient_light, pressure = pressure)
     #return "Hello, World!"
 
+def read_test_data(file):
+    return
+
+
 #read in csv, return numpy arrays for measured_data, humidity_data, light_data, pressure_data, actual_data
 def handle_data(filename):
     df = pd.read_csv(filename)
