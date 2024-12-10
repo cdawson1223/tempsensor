@@ -18,8 +18,9 @@ def index():
     ambient_light = 15000
     pressure = 30.43
     data_cols = handle_data('app/WeatherAppData.csv')
-    other,a,b,c = linear_regression(data_cols[0], data_cols[1], data_cols[2], data_cols[3], data_cols[4])
-    actual = other*measured + a*humidity + b*ambient_light + c*pressure
+    temp1, intercept = linear_regression(data_cols[0], data_cols[1], data_cols[2], data_cols[3], data_cols[4])
+    other,a,b,c = temp1
+    actual = other*measured + a*humidity + b*ambient_light + c*pressure + intercept
     return render_template('index.html', title='Home', actual = actual, measured = measured, humidity = humidity, ambient_light = ambient_light, pressure = pressure)
     #return "Hello, World!"
 
@@ -68,7 +69,9 @@ def linear_regression(measured_data, humidity_data, light_data, pressure_data, a
     # Make predictions
     #y_pred = model.predict(X_test)
     params = model.coef_
+    intercept = model.intercept_
     print("params are: ", params)
+    print("intercept is: ", intercept)
     #params, covariance = curve_fit(model, X, y)
 
     # Evaluate the model
@@ -78,4 +81,4 @@ def linear_regression(measured_data, humidity_data, light_data, pressure_data, a
     # Inspect coefficients
     # print('Estimated coefficients:', model.coef_)
     # print('Intercept:', model.intercept_)
-    return params 
+    return params, intercept
