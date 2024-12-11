@@ -1,13 +1,62 @@
-<!doctype html>
-<html>
+{% extends "base.html" %}
+
+{% block content %}
+
     <head>
         <title>{{ title }} - Microblog</title>
+        <style>
+            .container {
+                display: flex; /* Enable flexbox */
+                justify-content: center; /* Align items horizontally (centered) */
+                align-items: center; /* Align items vertically (centered) */
+                height: 100vh; /* Full viewport height */
+                width: 1900px;
+            }
+
+            .item {
+                background-color: lightblue; 
+                flex-basis: 200px;
+                /* width: 1600px; */
+                padding: 20px;
+                margin: 10px;
+                text-align: center;
+                border-radius: 5px;
+                border-color: lightblue;
+                border-width: 5px;
+            }
+
+            h2 {
+                font-size: 16px;
+                font-weight: bold;
+                color: blue;
+            }
+            
+            p {
+                color: black;
+                font-size: 12px;
+                
+            }
+            /* Add additional styling as needed */
+    
+        </style>
     </head>
-    <body>
-        <h1>Actual Temperature: {{ actual }} F</h1>
-        <h1>Measured Temperature: {{ measured }} F</h1>
-        <h1>Humidity: {{ humidity }} %</h1>
-        <h1>Ambient Light: {{ ambient_light }} lux</h1>
-        <h1>Barometric Pressure: {{ pressure }} Hg</h1>
-    </body>
-</html>
+    <div class="container mt-5" style="background-color: white;">
+        
+        
+        {% for location, measured, humidity, pressure, ambient_light, actual in output %}
+        <div class="item">
+            <h2>{{ location }}<h2>
+            <p style="color: orange">Measured Temperature: {{ measured }} F</p>
+            <p style="color: black">Humidity: {{ humidity }} %</p>
+            <p style="color: black">Ambient Light: {{ ambient_light }} lux</p>
+            <p style="color: black">Barometric Pressure: {{ pressure }} Hg</p>
+            <p style="color: green">Actual Temperature: {{ actual }} F</p>
+            <br>
+            <br>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+
+{% endblock %}
